@@ -34,8 +34,10 @@ social:
  #  url: http://bitbucket.org/jekyll
   - title: github
     url: http://github.com/jmpergar
-  - title: googleplus
+  - title: google-plus
     url: https://plus.google.com/+JoséMPereira/
+  - title: slideshare
+    url: http://es.slideshare.net/jmpereirag
 
 # Postal address (add as many lines as necessary)
 address:
