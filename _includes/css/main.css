@@ -93,8 +93,9 @@ header .container {
 header img {
     display: block;
     margin: 0 auto 20px;
+    border-radius: 150px;
     -webkit-border-radius: 150px;
-	-moz-border-radius: 150px;
+    -moz-border-radius: 150px;
 }
 
 header .intro-text .name {
