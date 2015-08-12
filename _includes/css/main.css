@@ -82,7 +82,7 @@ hr.star-primary:after {
 header {
     text-align: center;
     color: #fff;
-    background: #{{ site.color.primary }};
+    background: url("http://grandvoyage.com/wp-content/uploads/2014/04/7-tailandia.jpg");;
 }
 
 header .container {
