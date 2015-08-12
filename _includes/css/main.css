@@ -108,7 +108,7 @@ header .intro-text .name {
 header .intro-text .skills {
     font-family: 'Roboto', sans-serif;
     font-size: 1.25em;
-    font-weight: 300;
+    font-weight: 100;
 }
 
 @media(min-width:768px) {
