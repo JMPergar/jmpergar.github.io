@@ -101,8 +101,6 @@ header img {
 header .intro-text .name {
     display: block;
     font-family: 'Anton', sans-serif;
-    font-size: 2em;
-    font-weight: 700;
 }
 
 header .intro-text .skills {
