@@ -457,8 +457,7 @@ footer .footer-below {
     background-color: #{{ site.color.secondary-dark }} !important;
 }
 
-div.papers {  
-    float: center;
+div.papers {
     padding-top: 10px;  
     padding-right: 10px;  
     padding-bottom: 10px;  
