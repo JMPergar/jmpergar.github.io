@@ -340,8 +340,8 @@ footer h3 {
 }
 
 footer .footer-above {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: #{{ site.color.secondary }};
 }
 
@@ -352,6 +352,8 @@ footer .footer-col {
 footer .footer-below {
     padding: 25px 10px 25px 10px;
     background-color: #{{ site.color.secondary-dark }};
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
 }
 
 .btn-social {
