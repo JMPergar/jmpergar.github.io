@@ -471,3 +471,9 @@ div.paper {
     padding-left: 10px;  
     display: inline-block
 }
+
+div.video {
+    background-color: #f00;
+    width: 50px;
+    height: 100%;
+}
