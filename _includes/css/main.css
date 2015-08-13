@@ -458,7 +458,7 @@ footer .footer-below {
 }
 
 div.papers {  
-    float: center
+    float: center;
     padding-top: 10px;  
     padding-right: 10px;  
     padding-bottom: 10px;  
