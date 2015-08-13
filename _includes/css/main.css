@@ -462,5 +462,6 @@ div.paper {
     padding-right: 10px;  
     padding-bottom: 0.10px;  
     padding-left: 10px;  
-    display: block;
+    display: inline-block
+    position: absolute
 }
