@@ -500,7 +500,7 @@ iframe.slideshare {
 
 ul.paper-buttons {
     position: absolute;
-    top: 0;
+    top: 5px;
     left: 20px;
     list-style-type: none;
     padding-left: 0;
