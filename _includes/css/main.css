@@ -476,7 +476,8 @@ div.paper {
 div.paper-description {  
     width:560px;
     height:355px;
-    background-color: #0f0;
+    background-color: #{{ site.color.secondary-dark }};
+    display: inline-block;
 }
 
 div.video {
