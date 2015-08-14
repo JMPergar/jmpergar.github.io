@@ -465,26 +465,24 @@ div.papers {
     padding-left: 10px;  
 }
 
-@media(min-width:768px) {
-  div.paper {  
-      padding-top: 10px;  
-      padding-right: 10px;  
-      padding-bottom: 10px;  
-      padding-left: 10px;  
-  }
-
-  div.paper-description {  
-      width:560px;
-      height:355px;
-      background-color: #323232;
-      display: inline-block;
-  }
+div.paper {  
+    padding-top: 10px;  
+    padding-right: 10px;  
+    padding-bottom: 10px;  
+    padding-left: 10px;  
 }
-
+  
 div.paper-description {  
       width:280px;
       height:176px;
       background-color: #323232;
       display: inline-block;
+}
+
+@media(min-width:768px) {
+  div.paper-description {  
+      width:560px;
+      height:355px;
+  }
 }
 
