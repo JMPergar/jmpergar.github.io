@@ -105,7 +105,8 @@ header img {
 
 header .intro-text .name {
     display: block;
-    font-family: 'Anton', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
     font-size: 4.75em;
 }
 
