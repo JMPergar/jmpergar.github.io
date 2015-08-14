@@ -486,3 +486,15 @@ div.paper-description {
   }
 }
 
+iframe.slideshare {  
+      width:280px;
+      height:176px;
+}
+
+@media(min-width:768px) {
+  iframe.slideshare {  
+      width:560px;
+      height:355px;
+  }
+}
+
