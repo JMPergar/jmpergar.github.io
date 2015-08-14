@@ -470,7 +470,7 @@ div.paper {
     padding-right: 10px;  
     padding-bottom: 10px;  
     padding-left: 10px;  
-    display: inline-block;
+    /* display: inline-block; */
 }
 
 div.paper-description {  
