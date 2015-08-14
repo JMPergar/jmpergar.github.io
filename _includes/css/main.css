@@ -473,8 +473,8 @@ div.paper {
 }
   
 div.paper-description {  
-      width:280px;
-      height:176px;
+      width:336px;
+      height:211px;
       background-color: #323232;
       display: inline-block;
 }
@@ -487,8 +487,8 @@ div.paper-description {
 }
 
 iframe.slideshare {  
-      width:280px;
-      height:176px;
+      width:336px;
+      height:211px;
 }
 
 @media(min-width:768px) {
