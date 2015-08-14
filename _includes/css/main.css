@@ -477,6 +477,13 @@ div.paper-description {
       height:211px;
       background-color: #323232;
       display: inline-block;
+      position: relative;
+}
+
+ul.paper-buttons {
+    position: absolute;
+    top: 0;
+    left: 20px;
 }
 
 @media(min-width:768px) {
