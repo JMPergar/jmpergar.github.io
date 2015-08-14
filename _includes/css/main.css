@@ -503,5 +503,6 @@ ul.paper-buttons {
     top: 0;
     left: 20px;
     list-style-type: none;
+    padding-left: 0;
 }
 
