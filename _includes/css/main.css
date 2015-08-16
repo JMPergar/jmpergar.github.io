@@ -506,12 +506,15 @@ ul.paper-buttons {
     padding-left: 0;
 }
 
+div.paper-description {  
+      position: absolute;
+      color: #fff;
+}
+
 .paper-title {
-    display: block;
-    color: #fff;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 4.25em;
+    font-size: 2em;
 }
 
 .paper-description-text .paper-description {
