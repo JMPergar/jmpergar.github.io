@@ -500,13 +500,15 @@ iframe.slideshare {
 
 ul.paper-buttons {
     position: absolute;
-    top: 5px;
+    top: 7px;
     left: 20px;
     list-style-type: none;
     padding-left: 0;
 }
 
 div.paper-title { 
+    top: 5px;
+    left: 90px;
       position: absolute;
       color: #fff;
     font-family: 'Montserrat', sans-serif;
@@ -515,6 +517,8 @@ div.paper-title {
 }
 
 div.paper-synopsis { 
+    top: 5px;
+    left: 90px;
       position: absolute;
       color: #fff;
     font-family: 'Roboto', sans-serif;
@@ -523,6 +527,8 @@ div.paper-synopsis {
 }
 
 div.paper-where { 
+    top: 5px;
+    left: 90px;
       position: absolute;
       color: #fff;
     font-family: 'Roboto', sans-serif;
@@ -531,6 +537,8 @@ div.paper-where {
 }
 
 div.paper-date { 
+    top: 5px;
+    left: 90px;
       position: absolute;
       color: #fff;
     font-family: 'Roboto', sans-serif;
