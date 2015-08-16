@@ -506,30 +506,33 @@ ul.paper-buttons {
     padding-left: 0;
 }
 
-div.paper-description {  
+div.paper-title { 
       position: absolute;
       color: #fff;
-}
-
-.paper-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 2em;
 }
 
-.paper-description-text .paper-description {
+div.paper-description { 
+      position: absolute;
+      color: #fff;
     font-family: 'Roboto', sans-serif;
     font-size: 1.25em;
     font-weight: 100;
 }
 
-.paper-description-text .paper-where {
+div.paper-where { 
+      position: absolute;
+      color: #fff;
     font-family: 'Roboto', sans-serif;
     font-size: 1.25em;
     font-weight: 100;
 }
 
-.paper-description-text .paper-date {
+div.paper-date { 
+      position: absolute;
+      color: #fff;
     font-family: 'Roboto', sans-serif;
     font-size: 1.25em;
     font-weight: 100;
