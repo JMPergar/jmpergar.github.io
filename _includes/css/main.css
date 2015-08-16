@@ -506,3 +506,28 @@ ul.paper-buttons {
     padding-left: 0;
 }
 
+.paper-title {
+    display: block;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 4.25em;
+}
+
+.paper-description-text .paper-description {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25em;
+    font-weight: 100;
+}
+
+.paper-description-text .paper-where {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25em;
+    font-weight: 100;
+}
+
+.paper-description-text .paper-date {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25em;
+    font-weight: 100;
+}
