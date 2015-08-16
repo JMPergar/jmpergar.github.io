@@ -507,6 +507,7 @@ ul.paper-buttons {
 }
 
 div.paper-title { 
+    text-align: left;
     top: 5px;
     left: 90px;
       position: absolute;
@@ -516,7 +517,8 @@ div.paper-title {
     font-size: 2em;
 }
 
-div.paper-synopsis { 
+div.paper-synopsis {
+    text-align: left;
     top: 40px;
     left: 90px;
       position: absolute;
@@ -527,6 +529,7 @@ div.paper-synopsis {
 }
 
 div.paper-where { 
+    text-align: left;
     top: 75px;
     left: 90px;
       position: absolute;
@@ -537,6 +540,7 @@ div.paper-where {
 }
 
 div.paper-date { 
+    text-align: left;
     top: 135px;
     left: 90px;
       position: absolute;
