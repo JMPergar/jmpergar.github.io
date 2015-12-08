@@ -7,14 +7,14 @@ permalink:        pretty
 relative_permalinks: true
 
 # Setup
-title:            Jorge Castillo
-tagline:          'Android Dev'
-description:      'Android Dev'
-url:              http://jorgecastillo.xyz
+title:            JMPergar
+tagline:          'Android Tech Lead'
+description:      'Android Tech Lead'
+url:              http://jmpergar.com
 baseurl:          /
 
 author:
-  name:           'Jorge Castillo'
+  name:           'José Manuel Pereira García'
   url:            https://twitter.com/JorgeCastilloPr
 
 paginate:         5
@@ -23,10 +23,10 @@ paginate:         5
 version:          1.0
 
 github:
-  repo:           https://github.com/JorgeCastilloPrz/jorgecastilloprz.github.io
+  repo:           https://github.com/jmpergar/jmpergar.github.io
 
 # Social Media Content
-twitter_username: jorgecastillopr
-github_username:  jorgecastilloprz
-googleplus_username: +JorgeCastilloP%C3%A9rez
-linkedin_username: jorgecastilloprz
+twitter_username: jmpergar
+github_username:  jmpergar
+googleplus_username: +JoseMPereira
+linkedin_username: jmpergar
