@@ -9,7 +9,7 @@ relative_permalinks: true
 # Setup
 title:            JMPergar
 tagline:          'Android Tech Lead'
-description:      'Android Tech Lead at jobandtalent and GDG Madrid Organizer. AndroCode Blog Founder. Beer Lover and Andalú. And Speaker!'
+description:      'Android Tech Lead at jobandtalent and GDG Madrid Organizer. AndroCode Blog Founder. Beer Lover and Andalú.'
 url:              http://jmpergar.com
 baseurl:          /
 
