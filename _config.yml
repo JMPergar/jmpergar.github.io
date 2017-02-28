@@ -29,10 +29,10 @@ force-https: True
 #############
 
 lang: "en"
-author: "John Smith"
-title: "{ John Smith }"
+author: "JMPergar"
+title: "{ José Manuel Pereira García }"
 description: "Blog and website of John Smith, blogging mainly for tech. Opinions expressed are mine."
-keywords: "smith, jones, personal, jekyll, theme"
+keywords: "jmpergar, blog, development"
 favicon: "/img/favicon.ico"
 
 ################
@@ -58,7 +58,8 @@ lines: # You can add HTML Tags in the Text
   - text: "The lower you fall, the higher you'll fly."
   - text: "Where’s your will to be weird?"
 
-me-img: "/img/jetpacktocat.png"
+# me-img: "/img/jetpacktocat.png"
+me-img: "https://pbs.twimg.com/profile_images/836296761065025536/BnPCXJaa_400x400.jpg"
 
 ##############################
 # Color the browser elements #
