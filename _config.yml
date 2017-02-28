@@ -30,7 +30,7 @@ force-https: True
 
 lang: "en"
 author: "JMPergar"
-title: "{ José Manuel Pereira García } { JMPergar }"
+title: "{ JMPergar }"
 description: "Blog about that kind of things that be liked by a developer like me."
 keywords: "jmpergar, blog, development"
 favicon: "/img/favicon.ico"
