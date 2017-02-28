@@ -98,14 +98,14 @@ email-share: True
 fb-share: True
 twitter-share: True
 linkedin-share: True
-reddit-share: True
+reddit-share: False
 google-plus-share: True
-tumblr-share: True
-pinterest-share: True
+tumblr-share: False
+pinterest-share: False
 pocket-share: True
-vkontakte-share: True
+vkontakte-share: False
 
-disqus-shortname: "panossakkos"
+disqus-shortname: "JMPergar"
 
 syntax-highlight: True
 
@@ -168,7 +168,7 @@ err-404-img: "/img/labtocat.png"
 
 keybase-username: johnsmith
 keybase-in-social: False
-keybase-in-footer: True
+keybase-in-footer: False
 
 ################################################################################
 
@@ -179,7 +179,7 @@ keybase-in-footer: True
 pages_list:
   About: 'about'
   Blog: 'latest-post'
-  Timeline: 'timeline'
+#  Timeline: 'timeline'
   Contact: 'contact'
 
 # Exclusion list from the generated _site
