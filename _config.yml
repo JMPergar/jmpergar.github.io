@@ -30,8 +30,8 @@ force-https: True
 
 lang: "en"
 author: "JMPergar"
-title: "{ José Manuel Pereira García }"
-description: "Blog and website of John Smith, blogging mainly for tech. Opinions expressed are mine."
+title: "{ José Manuel Pereira García } { JMPergar }"
+description: "Blog about that kind of things that be liked by a developer like me."
 keywords: "jmpergar, blog, development"
 favicon: "/img/favicon.ico"
 
@@ -55,8 +55,11 @@ type-speed: 10
 start-delay: 200
 delete-delay: 5000
 lines: # You can add HTML Tags in the Text
-  - text: "The lower you fall, the higher you'll fly."
-  - text: "Where’s your will to be weird?"
+  - text: "Blog about that kind of things that be liked by a developer like me."
+  - text: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand. { Martin Fowler }"
+  - text: "Imagination is more important than knowledge. { Albert Einstein }"
+  - text: "Truth can only be found in one place, the code. { Robert C. Martin }"
+  - text: "I'm not a great programmer; I'm just a good programmer with great habits. { Kent Beck }"
 
 # me-img: "/img/jetpacktocat.png"
 me-img: "https://pbs.twimg.com/profile_images/836296761065025536/BnPCXJaa_400x400.jpg"
