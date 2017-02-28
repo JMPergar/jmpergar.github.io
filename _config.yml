@@ -61,8 +61,7 @@ lines: # You can add HTML Tags in the Text
   - text: "Truth can only be found in one place, the code. { Robert C. Martin }"
   - text: "I'm not a great programmer; I'm just a good programmer with great habits. { Kent Beck }"
 
-# me-img: "/img/jetpacktocat.png"
-me-img: "https://pbs.twimg.com/profile_images/836296761065025536/BnPCXJaa_400x400.jpg"
+me-img: "/img/avatar.jpg"
 
 ##############################
 # Color the browser elements #
