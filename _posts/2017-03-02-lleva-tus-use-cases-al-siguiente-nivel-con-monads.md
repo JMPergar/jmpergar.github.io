@@ -233,7 +233,7 @@ validate(events, collections) {
 Gracias a la función `validate` podemos procesar ese happy case y caso contrario nos devolverá un `Disjunction` con el conjunto de los casos excepcionales.
 <br><br>
 
-Y hasta aquí todo, espero que al menos este post os muestre que las cosas se pueden hacer de otra manera distinta a como la venimos haciendo los que como yo llevamos años dedicándonos a la programación orientada a objetos y os anime a buscar nuevas soluciones, yo por mi por mi parte seguiré profundizando en el tema y compartiendo mis avances. Para ello he púlicado un repositorio en donde iré mostrando el modo en que implemento mis apps usando estos nuevos patrones y arquitecturas. Además es un proyecto librería así que lo podréis usar si os animáis a hacer alguna prueba.
+Y hasta aquí todo, espero que al menos este post os muestre que las cosas se pueden hacer de otra manera distinta a como la venimos haciendo los que como yo llevamos años dedicándonos a la programación orientada a objetos y os anime a buscar nuevas soluciones, yo por mi por mi parte seguiré profundizando en el tema y compartiendo mis avances. Para ello he púlicado un [repositorio](https://github.com/JMPergar/klean) en donde iré mostrando el modo en que implemento mis apps usando estos nuevos patrones y arquitecturas. Además es un proyecto librería así que lo podréis usar si os animáis a hacer alguna prueba.
 <br><br>
 
 Future&#60;Option&#60;HastaPronto&#62;&#62;
