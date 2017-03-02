@@ -1,7 +1,7 @@
 ---
 layout: post
 section-type: post
-title: Lleva tus Use Cases al siguiente nivel con Monads (parte 1)
+title: Lleva tus Use Cases al siguiente nivel con Monads
 category: tech
 tags: [ 'tutorial' 'kotlin' 'programación funcional' 'monads' 'clean architecture' ]
 ---
@@ -16,7 +16,7 @@ No es que no existan soluciones, que si existen, si no que todas me parecían en
 
 > *Esta es mi opinión, informaros y construir la vuestra propia. Sed críticos y cuestionaros vuestras soluciones o las que otros os ofrezcan, es la única manera de progresar y probablemente el mejor consejo que os puedo dar en este post.*
 
-###  
+
 
 Y es aquí donde entra en juego la **Programación Funcional**. Hace poco me he puesto manos a la obra para preparar un MVP (Minimum Value Product) y como soy así y no te tenía suficiente con ese reto me propuse hacerlo en [Kotlin](https://kotlinlang.org/), pero fue esta decisión la que me está permitiendo afrontar los problemas desde otra perspectiva y encontrar nuevas soluciones. Llevo unos años coqueteando con Scala y esto ya me daba alguna idea de lo que podría llegar a ser pero fue la [charla](https://www.youtube.com/watch?v=cnOA7HdNUR4) de [Raúl Raja](https://twitter.com/raulraja) en el pasado [Freakend Mobile](https://www.autentia.com/2017/02/23/un-fin-de-semana-en-la-sierra-hablando-de-mobile-charlas-del-freakend/) la que abrió mi mente a las nuevas opciones que vengo a contaros.
 
@@ -26,11 +26,11 @@ Es cierto que Kotlin esta lejos de ser tan maduro como Scala y la libreria estan
 
 > *Tampoco voy a profundizar en el concepto de Monad o sus distintos tipos, tan solo en como estos nos ayudan. Para lo primero os recomiendo una charla de **Juan Manuel Serrano** sobre [arquitecturas funcionales](https://www.youtube.com/watch?v=CT58M6CH0m4) que tuve el placer de disfrutar en la pasada Codemotion 2016 y recomiendo muy mucho. Para lo segundo podéis ver la charla de Raúl que enlacé más atrás o leeros los puntos 5, 6 y 7 de [esta](http://danielwestheide.com/scala/neophytes.html) guía de Scala.*
 
-###  
+
 
 Os comentaba que era la gestión de errores y los coordinanción de trabajos los puntos que me preocupaban, este post solo abarcará el primero de los problemas aunque bien es cierto que la senda que aquí empezamos es la misma que nos hará encontrar solución a lo segundo. En cuanto lo tenga más maduro publicare otro post.
 
-###  
+
 
 ## ¿Cual es el problema?
 
