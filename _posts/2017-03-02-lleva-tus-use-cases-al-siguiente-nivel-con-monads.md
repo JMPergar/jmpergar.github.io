@@ -80,7 +80,7 @@ Ambas implementaciones nos llevarían al mismo problema. Tendríamos que andar p
 <br>
 ```java
 if (resultOfFirstCall != null && resultOfSecondCall != null) {
-  // process results
+  // Process results
 } else {
   // Check exceptions and process
 }
