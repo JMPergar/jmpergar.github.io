@@ -33,7 +33,8 @@ Es cierto que Kotlin esta lejos de ser tan maduro como Scala y la libreria estan
 <br><br>
 
 Os comentaba que era la gestión de errores y los coordinanción de trabajos los puntos que me preocupaban, este post solo abarcará el primero de los problemas aunque bien es cierto que la senda que aquí empezamos es la misma que nos hará encontrar solución a lo segundo. En cuanto lo tenga más maduro publicare otro post.
-<br><br>
+
+<br><br><br>
 
 ## ¿Cual es el problema?
 
@@ -112,7 +113,7 @@ inCaseOfSuccess(var4) {
 ¿Bónito verdad?
 
 Como veís, ahora de un simple vistazo vemos lo que nuestro programa hace y solo al final gestionamos las excepciones.
-<br><br>
+<br><br><br>
 
 ## ¿Pero como lo hacemos?
 
