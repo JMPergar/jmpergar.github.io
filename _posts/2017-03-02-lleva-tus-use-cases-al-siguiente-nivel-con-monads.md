@@ -16,9 +16,9 @@ No es que no existan soluciones, que si existen, si no que todas me parecían en
 
 > *Esta es mi opinión, informaros y construir la vuestra propia. Sed críticos y cuestionaros vuestras soluciones o las que otros os ofrezcan, es la única manera de progresar y probablemente el mejor consejo que os puedo dar en este post.*
 
+Y es aquí donde entra en juego la **Programación Funcional**.
 
-
-Y es aquí donde entra en juego la **Programación Funcional**. Hace poco me he puesto manos a la obra para preparar un MVP (Minimum Value Product) y como soy así y no te tenía suficiente con ese reto me propuse hacerlo en [Kotlin](https://kotlinlang.org/), pero fue esta decisión la que me está permitiendo afrontar los problemas desde otra perspectiva y encontrar nuevas soluciones. Llevo unos años coqueteando con Scala y esto ya me daba alguna idea de lo que podría llegar a ser pero fue la [charla](https://www.youtube.com/watch?v=cnOA7HdNUR4) de [Raúl Raja](https://twitter.com/raulraja) en el pasado [Freakend Mobile](https://www.autentia.com/2017/02/23/un-fin-de-semana-en-la-sierra-hablando-de-mobile-charlas-del-freakend/) la que abrió mi mente a las nuevas opciones que vengo a contaros.
+Hace poco me he puesto manos a la obra para preparar un MVP (Minimum Value Product) y como soy así y no te tenía suficiente con ese reto me propuse hacerlo en [Kotlin](https://kotlinlang.org/), pero fue esta decisión la que me está permitiendo afrontar los problemas desde otra perspectiva y encontrar nuevas soluciones. Llevo unos años coqueteando con Scala y esto ya me daba alguna idea de lo que podría llegar a ser pero fue la [charla](https://www.youtube.com/watch?v=cnOA7HdNUR4) de [Raúl Raja](https://twitter.com/raulraja) en el pasado [Freakend Mobile](https://www.autentia.com/2017/02/23/un-fin-de-semana-en-la-sierra-hablando-de-mobile-charlas-del-freakend/) la que abrió mi mente a las nuevas opciones que vengo a contaros.
 
 Es cierto que Kotlin esta lejos de ser tan maduro como Scala y la libreria estandar de este segundo es mucho mas completa e incluye cosas que en nuestro caso tendremos que implementar o apoyarnos en librerías de terceros para tenerlas, pero el punto importante es que Kotlin nos ofrece la base necesaría para desarrollar estas soluciones.
 
@@ -26,24 +26,20 @@ Es cierto que Kotlin esta lejos de ser tan maduro como Scala y la libreria estan
 
 > *Tampoco voy a profundizar en el concepto de Monad o sus distintos tipos, tan solo en como estos nos ayudan. Para lo primero os recomiendo una charla de **Juan Manuel Serrano** sobre [arquitecturas funcionales](https://www.youtube.com/watch?v=CT58M6CH0m4) que tuve el placer de disfrutar en la pasada Codemotion 2016 y recomiendo muy mucho. Para lo segundo podéis ver la charla de Raúl que enlacé más atrás o leeros los puntos 5, 6 y 7 de [esta](http://danielwestheide.com/scala/neophytes.html) guía de Scala.*
 
-
-
 Os comentaba que era la gestión de errores y los coordinanción de trabajos los puntos que me preocupaban, este post solo abarcará el primero de los problemas aunque bien es cierto que la senda que aquí empezamos es la misma que nos hará encontrar solución a lo segundo. En cuanto lo tenga más maduro publicare otro post.
-
-
 
 ## ¿Cual es el problema?
 
-Imaginaos que necesitamos realizar dos llamadas y una vez finalizadas vamos a realizar un procesado conjunto de las respuestas de ambas llamadas, pero si se da algún caso excepcional realizar alternativas en función de estos casos.
+Imaginaos que necesitamos realizar dos llamadas y una vez finalizadas vamos a realizar un procesado conjunto de las respuestas de ambas llamadas. Hasta ahí fácil ¿verdad?, pero que sucede si se da algún caso excepcional y necesitamos realizar alternativas en función de estos casos. Aquí la cosa ya se vuelve un poco más compleja.
 
-Podríamos considerar dos implementaciones, asíncrona con callbacks o síncrona con excepciones:
+Podríamos considerar dos implementaciones, asíncrona con callbacks o síncrona con excepciones para nuestros casos de uso:
 
 ```java
-// Implementación Asíncrona
+// Implementacións Asíncrona
 myUseCase.execute(
-  new MyFirstUseCase.Callback() {
+  new MyUseCase.Callback() {
     @Override
-    public void onLoaded(String text) {
+    public void onSuccess(String text) {
       // do something
     }
 
@@ -69,17 +65,21 @@ try {
 }
 ```
 
-Pero ambas nos llevarían al mismo problema, tendríamos que andar preguntando si ha ido bien o mal o que ha ido mal y no tendríamos una manera clara y legible de escribir nuestro happy case, ¿que es lo que queremos hacer cuando todo va bien?. A todo el código de las llamadas plateadas en uno de los dos estilos anteriores habría que añadir el de estas preguntas que os comentaba. Os expongo el caso más sencillo, el síncrono:
+Ambas implementaciones nos llevarían al mismo problema. Tendríamos que andar preguntando si ha ido bien o mal y en el segundo caso preguntar que ha ido mal, esto por cada una de las llamadas. No tendríamos una manera clara y legible de escribir nuestro happy case, ¿que es lo que queremos hacer cuando todo va bien?. A todo el código de las llamadas planteadas en cualquiera de los dos estilos anteriores habría que añadir el de esas preguntas que os comentaba. Os expongo el caso más sencillo, el síncrono:
 
 ```java
 if (resultOfFirstCall != null && resultOfSecondCall != null) {
-  // process resultOfFirstCall and resultOfSecondCall
+  // process results
 } else {
-  // Check if some call has launched any exception and process
+  // Check exceptions and process
 }
 ```
 
-En el caso asíncrono sería aun más complejo por que habría que usar algún mecanismo para esperar que ambas llamadas respondan o lancen la excepción (Esto es tema de próximos post). Evidentemente este código es muy sencillo por que tan solo pretende ser un ejemplo, pero imaginad como se podría complicar si el número de llamadas sube o si también lo hace el número de casos a contemplar. Imaginaos cuanto código tendríais que leer para averiguar que hace vuestro programa, imaginad que queréis hacer cosas más complejas como procesar esos dos resultados y hacer una tercera llamada con el y concatenar este tercer resultado con un cuarto, imaginad la cantidad de comprobaciones intermedias que tendreís que hacer y como poco a poco la verdadera finalidad de vuestro programa queda cada vez más oculta por el como por encima del que. Pues bien, ¿que me decís si os digo que hay una manera distinta de hacerlo que prima el que por encima del como?. Os lo muestro en pseucódigo:
+*En el caso asíncrono sería aun más complejo por que habría que usar algún mecanismo para esperar que ambas llamadas respondan o lancen la excepción (esto es tema de próximos posts).*
+
+Evidentemente este código es muy simple con el fin de servir de ejemplo, pero imaginad como se podría complicar si el número de llamadas sube o si también lo hace el número de casos a contemplar. Imaginaos cuanto código tendríais que leer para averiguar que hace vuestro programa. Imaginad que queréis hacer cosas más complejas como procesar esos dos resultados y hacer una tercera llamada con el y concatenar este tercer resultado con un cuarto. Imaginad la cantidad de comprobaciones intermedias que tendreís que hacer y como poco a poco la verdadera finalidad de vuestro programa queda cada vez más oculta por el como por encima del qué.
+
+Pues bien, ¿que me decís si os digo que hay una manera distinta de hacerlo que prima el qué por encima del como?. Os lo muestro en pseucódigo:
 
 ```
 var1 = firstCall()
@@ -96,7 +96,9 @@ inCaseOfSuccess(var4) {
 }
 ```
 
-¿Bónito verdad? Como veís, ahora de un simple vistazo vemos lo que nuestro programa hace y solo al final gestionamos las excepciones.
+¿Bónito verdad?
+
+Como veís, ahora de un simple vistazo vemos lo que nuestro programa hace y solo al final gestionamos las excepciones.
 
 ## ¿Pero como lo hacemos?
 
