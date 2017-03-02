@@ -72,7 +72,7 @@ try {
   // do something
 }
 ```
-<br>
+<br><br>
 
 Ambas implementaciones nos llevarían al mismo problema. Tendríamos que andar preguntando si ha ido bien o mal y en el segundo caso preguntar que ha ido mal, esto por cada una de las llamadas. No tendríamos una manera clara y legible de escribir nuestro happy case, ¿que es lo que queremos hacer cuando todo va bien?. A todo el código de las llamadas planteadas en cualquiera de los dos estilos anteriores habría que añadir el de esas preguntas que os comentaba. Os expongo el caso más sencillo, el síncrono:
 
@@ -86,7 +86,7 @@ if (resultOfFirstCall != null && resultOfSecondCall != null) {
 ```
 
 *En el caso asíncrono sería aun más complejo por que habría que usar algún mecanismo para esperar que ambas llamadas respondan o lancen la excepción (esto es tema de próximos posts).*
-<br>
+<br><br>
 
 Evidentemente este código es muy simple con el fin de servir de ejemplo, pero imaginad como se podría complicar si el número de llamadas sube o si también lo hace el número de casos a contemplar. Imaginaos cuanto código tendríais que leer para averiguar que hace vuestro programa. Imaginad que queréis hacer cosas más complejas como procesar esos dos resultados y hacer una tercera llamada con el y concatenar este tercer resultado con un cuarto. Imaginad la cantidad de comprobaciones intermedias que tendreís que hacer y como poco a poco la verdadera finalidad de vuestro programa queda cada vez más oculta por el como por encima del qué.
 
@@ -107,7 +107,7 @@ inCaseOfSuccess(var4) {
   // do something with the collections of errors
 }
 ```
-<br>
+<br><br>
 
 ¿Bónito verdad?
 
@@ -128,7 +128,7 @@ sealed class ExceptionsCase {
     class ServerError : ExceptionsCase()
 }
 ```
-<br>
+<br><br>
 
 Lo que aquí tendríamos es un tipo de respuesta que podría contener nuestro resultado esperado o el caso excepcional a contemplar (definido mediante una `sealed class` de kotlin).
 
@@ -148,7 +148,7 @@ result1.flatMap {
 }
 ```
 *La declaracion de tipos en kotlin no sería necesaría y sería inferida pero la añado por claridad*
-<br>
+<br><br>
 
 En este caso `res1` y `res2` serían los strings de respuesta. Pero no, esto aun no es todo lo limpio que nos gustaría y se podría complicar mucho si anidamos varios procesamientos de eithers. Lo bueno es que los lenguajes ya nos proporcionan azúcar sintáctico para lidiar con estos casos. Como las `for comprehension` de Scala que dejarían nuestro código como algo similar a lo siguiente:
 
@@ -160,7 +160,7 @@ for {
 } yield (res1 + res2)
 ```
 *Right y left es la manera en que el tipo `Either` nos proporciona accesos al resultado esperado o a los casos excepcionales respectivamente.*
-<br>
+<br><br>
 
 Pero he hecho un poco de trampa, por que como os comentaba al principio Kotlin no está aún al nivel de lenguaje como Scala en estos aspectos y no incluye ni `Either` ni nada similar a las `for comprehension`, pero también os comentaba que nos proporciona las base para implementar este tipo de soluciones.
 
@@ -175,7 +175,7 @@ interface UseCase<in I, out R, out E> {
     fun execute(input: I): Disjunction<E, R>
 }
 ```
-<br>
+<br><br>
 
 Donde `I` es el input de nuestros use case, `E` el conjunto de casos excepcionales que, como vimos más atrás, definiremos mediante una `sealed class` y `R` el tipo de retorno esperado.
 
@@ -199,7 +199,7 @@ when (result) {
 }
 ```
 *Os pongo un caso más real para que vaya cogiendo color.*
-<br>
+<br><br>
 
 En el código anterior podéis comprobar como es sólo al final cuando vamos a aplicar los **side effects** cuando contemplamos y procesamos los casos excepcionales.
 
@@ -216,7 +216,7 @@ val result = events.flatMap {
   }
 }
 ```
-<br>
+<br><br>
 
 Aquí es donde viene al rescate el segundo paquete `validation` que nos proporciona una manera más limpia y sin anidaciones de procesar varios eithers y conseguir el mismo resultado:
 
@@ -227,7 +227,7 @@ validate(events, collections) {
     listOf(FeedElement.Collections(collections)) + events.map { FeedElement.Event(it) }
 }
 ```
-<br>
+<br><br>
 
 Gracias a la función `validate` podemos procesar ese happy case y caso contrario nos devolverá un `Disjunction` con el conjunto de los casos excepcionales.
 <br><br>
