@@ -3,7 +3,7 @@ layout: post
 section-type: post
 title: Lleva tus Use Cases al siguiente nivel con Monads
 category: tech
-tags: [ 'tutorial' 'kotlin' 'programación funcional' 'monads' 'clean architecture' ]
+tags: [ 'tutorial', 'kotlin', 'programación funcional', 'monads', 'clean architecture' ]
 ---
 
 El tiempo pasa volando y ya llevo mas de tres años jugando con esto que llaman [Clean Architecture](https://www.youtube.com/watch?v=x3CR39_PR_I), empece con [Hexagonal](https://www.youtube.com/watch?v=C3e3AwOTohg) y aquí sigo, si lo contara en numero de frameworks de javascript ya habría perdido la cuenta. Tres años en nuestro sector puede llegar a ser una eternidad.
