@@ -23,10 +23,10 @@ Y es aquí donde entra en juego la **Programación Funcional**.
 
 Hace poco me he puesto manos a la obra para preparar un MVP (Minimum Value Product) y como soy así y no te tenía suficiente con ese reto me propuse hacerlo en [Kotlin](https://kotlinlang.org/), pero fue esta decisión la que me está permitiendo afrontar los problemas desde otra perspectiva y encontrar nuevas soluciones. Llevo unos años coqueteando con Scala y esto ya me daba alguna idea de lo que podría llegar a ser pero fue la [charla](https://www.youtube.com/watch?v=cnOA7HdNUR4) de [Raúl Raja](https://twitter.com/raulraja) en el pasado [Freakend Mobile](https://www.autentia.com/2017/02/23/un-fin-de-semana-en-la-sierra-hablando-de-mobile-charlas-del-freakend/) la que abrió mi mente a las nuevas opciones que vengo a contaros.
 
-Es cierto que Kotlin esta lejos de ser tan maduro como Scala y la libreria estandar de este segundo es mucho mas completa e incluye cosas que en nuestro caso tendremos que implementar o apoyarnos en librerías de terceros para tenerlas, pero el punto importante es que Kotlin nos ofrece la base necesaría para desarrollar estas soluciones.
+Es cierto que Kotlin [esta lejos de ser tan maduro como Scala](https://kotlinlang.org/docs/reference/comparison-to-scala.html) y la libreria estandar de este segundo es mucho mas completa e incluye cosas que en nuestro caso tendremos que implementar o apoyarnos en librerías de terceros para tenerlas, pero el punto importante es que Kotlin nos ofrece la base necesaría para desarrollar estas soluciones.
 
 <br><br>
-> *En este post no voy entrar a explicaros las bases de Kotlin ni los elementos de este lenguaje que vamos a usar. Si como yo sois programadores de Android os recomiendo leeros ["Kotlin for Android Developers: Learn Kotlin the easy way while developing an Android App"](https://www.amazon.es/Kotlin-Android-Developers-Learn-developing/dp/1530075610/ref=sr_1_1?s=books&ie=UTF8&qid=1488458124&sr=8-1&keywords=antonio+leiva+kotlin), un fantástico libro de introducción al desarrollo en Android con Kotlin que os proporcionara esa base necesaria.*
+> *En este post no voy entrar a explicaros las bases de Kotlin ni los elementos de este lenguaje que vamos a usar. Si como yo sois programadores de Android os recomiendo leeros ["Kotlin for Android Developers: Learn Kotlin the easy way while developing an Android App"](https://www.amazon.es/Kotlin-Android-Developers-Learn-developing/dp/1530075610/ref=sr_1_1?s=books&ie=UTF8&qid=1488458124&sr=8-1&keywords=antonio+leiva+kotlin), un fantástico libro de introducción al desarrollo en Android con Kotlin que os proporcionara esa base necesaria. También podéis ojear el [blog](https://devexperto.com/blog/) de su autor y amigo Antonio Leiva que está plagado de posts al respecto*
 
 > *Tampoco voy a profundizar en el concepto de Monad o sus distintos tipos, tan solo en como estos nos ayudan. Para lo primero os recomiendo una charla de **Juan Manuel Serrano** sobre [arquitecturas funcionales](https://www.youtube.com/watch?v=CT58M6CH0m4) que tuve el placer de disfrutar en la pasada Codemotion 2016 y recomiendo muy mucho. Para lo segundo podéis ver la charla de Raúl que enlacé más atrás o leeros los puntos 5, 6 y 7 de [esta](http://danielwestheide.com/scala/neophytes.html) guía de Scala.*
 
@@ -121,7 +121,7 @@ Aquí es donde entra en juego las **Monads**, en concreto el tipo `Either`, que 
 
 <br>
 ```kotlin
-var myEither: Either<ExceptionsCase, String>
+val myEither: Either<ExceptionsCase, String>
 
 sealed class ExceptionsCase {
 
@@ -156,11 +156,10 @@ En este caso `res1` y `res2` serían los strings de respuesta. Pero no, esto aun
 <br>
 ```scala
 for {
-    res1 <- result1.right
-    res2 <- result2.right
+    res1 <- result1
+    res2 <- result2
 } yield (res1 + res2)
 ```
-*Right y left es la manera en que el tipo `Either` nos proporciona accesos al resultado esperado o a los casos excepcionales respectivamente.*
 <br><br>
 
 Pero he hecho un poco de trampa, por que como os comentaba al principio Kotlin no está aún al nivel de lenguaje como Scala en estos aspectos y no incluye ni `Either` ni nada similar a las `for comprehension`, pero también os comentaba que nos proporciona las base para implementar este tipo de soluciones.

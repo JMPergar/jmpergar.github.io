@@ -139,7 +139,7 @@ email: "jm.pereira.g@gmail.com"
 # This works best when your author blurb image has a transparent background, or matches your site background color.
 
 # if the author_blurb is not set, then this feature is skipped
-author_blurb: "Android Developer and Kotlin Functional Programming Padawan. Photography lover, boardgamer and Andalú. I’ve worked in companies and projects like Jobandtalent, Redbooth, Yesweplay, Similify, BeRepublic, Androcode or GDG Barcelona. Currently working on my own way. I’m building am MVP and hitting functional nails using Kotlin like the hammer!"
+author_blurb: "Android Developer and Kotlin Functional Programming Padawan. Photography lover, boardgamer and Andalú. I’ve worked in companies and projects like Jobandtalent, Redbooth, Yesweplay, Similify, BeRepublic, Androcode or GDG Barcelona. Currently working on my own way. I’m building an MVP and hitting functional nails using Kotlin like the hammer!"
 author_blurb_image: "/img/avatar.jpg"
 
 ##################
