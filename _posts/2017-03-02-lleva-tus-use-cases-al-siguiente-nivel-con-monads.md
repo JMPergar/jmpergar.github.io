@@ -102,9 +102,9 @@ Como veís, ahora de un simple vistazo vemos lo que nuestro programa hace y solo
 
 ## ¿Pero como lo hacemos?
 
-Aquí es donde entra en juego las **Monads**, en concreto el tipo **Either**, que es un tipo cuyo fin es encapsular la respuesta y todos sus casos excepcionales. Os pongo un ejemplo:
+Aquí es donde entra en juego las **Monads**, en concreto el tipo `Either`, que es un tipo cuyo fin es encapsular la respuesta y todos sus casos excepcionales. Os pongo un ejemplo:
 
-```java
+```kotlin
 var myEither: Either<ExceptionsCase, String>
 
 sealed class ExceptionsCase {
@@ -114,12 +114,15 @@ sealed class ExceptionsCase {
 }
 ```
 
-Lo que aquí tendríamos es un tipo de respuesta que podría contener nuestro resultado esperado o el caso excepcional a contemplar (definido mediante una sealed class de kotlin) y tu me dirás pero estamos en las mismas, debemos preguntar por el contenido para poder trabajar con el. Y yo te diré, no, es aquí donde, gracias al concepto de monad, podemos trabajar con estos resultados bajo el supuesto de que todo ha ido bien.
+Lo que aquí tendríamos es un tipo de respuesta que podría contener nuestro resultado esperado o el caso excepcional a contemplar (definido mediante una `sealed class` de kotlin).
 
-La idea es que mediante funciones como map o flatMap procesemos el resultado en caso de existir y en caso contrario devolver un Either que albergue el caso exceptional, esto nos permitiria ir concatenando Eithers y solo al final preocuparnos de si ha dio bien o mal. Os pongo un ejemplo:
+Y tu me dirás, ¡pero si estamos en las mismas!, debemos preguntar por el contenido para poder trabajar con el. Y yo te diré, no, es aquí donde, gracias al concepto de monad, podemos trabajar con estos resultados bajo el supuesto de que todo ha ido bien.
+
+La idea es que mediante funciones como `map` o `flatMap` procesemos el resultado en caso de existir y en caso contrario devolver un `Either` que albergue el caso exceptional, esto nos permitiría ir concatenando eithers y solo al final preocuparnos de si ha dio bien o mal. Os pongo un ejemplo:
 
 *La declaracion de tipos en kotlin no sería necesaría y sería inferida pero la añado por claridad*
-```java
+
+```kotlin
 val result1: Either<ExceptionsCase, String> = firstCall()
 val result2: Either<ExceptionsCase, String> = secondCall()
 
@@ -130,36 +133,37 @@ result1.flatMap {
 }
 ```
 
-En este caso `res1` y `res2` serian los strings de respuesta. Pero nos esto aun no es todo lo limpio que nos gustaría y se podría complicar mucho si anidamos varios procesamientos de eithers, pero lo bueno es que los lenguajes ya nos propocionan azucar sintactico para lidiar con estos casos. Como las **for comprehension** de scala que dejarían nuestro como algo similar a lo siguiente:
+En este caso `res1` y `res2` serían los strings de respuesta. Pero no, esto aun no es todo lo limpio que nos gustaría y se podría complicar mucho si anidamos varios procesamientos de eithers. Lo bueno es que los lenguajes ya nos proporcionan azúcar sintáctico para lidiar con estos casos. Como las `for comprehension` de Scala que dejarían nuestro código como algo similar a lo siguiente:
 
-*Right y left es la manera en que el tipo Either nos proporciona accesos al resultado esperado o casos excepcionales respectivamente.*
+*Right y left es la manera en que el tipo `Either` nos proporciona accesos al resultado esperado o a los casos excepcionales respectivamente.*
 
-```java
+```scala
 for {
     res1 <- result1.right
     res2 <- result2.right
-  } yield (res1 + res2)
+} yield (res1 + res2)
 ```
 
-Pero os he mentido un poco, pero solo un poquito, por que como os comentaba al principio Kotlin no está aún al nivel de lenguaje como Scala en estos aspectos y no incluye ni Eithers ni nada similar a las for comprehension, pero también os comentaba que nos proporciona las base para implementar este tipo de soluciones.
+Pero he hecho un poco de trampa, por que como os comentaba al principio Kotlin no está aún al nivel de lenguaje como Scala en estos aspectos y no incluye ni `Either` ni nada similar a las `for comprehension`, pero también os comentaba que nos proporciona las base para implementar este tipo de soluciones.
 
-En nuestro caso nos vamos a apoyar en [Funcktionale](https://github.com/MarioAriasC/funKTionale) en concreto en sus paquetes `funktionale-either` y `funktionale-validation`.
+En nuestro caso nos vamos a apoyar en [Funcktionale](https://github.com/MarioAriasC/funKTionale), en concreto en sus paquetes `either` y `validation`.
 
-El primero de estos paquetes nos provee un nuevo tipo llamado `Disjunction` que vendría a ser el either que os he venido explicando. Así pues ahora nuestros use case podrían implementar una interfaz similar a la siguiente:
+El primero de estos nos provee un nuevo tipo llamado `Disjunction` que vendría a ser el `Either` que os he venido presentando. Así pues ahora nuestros use case podrían implementar una interfaz similar a la siguiente:
 
-```java
+```kotlin
 interface UseCase<in I, out R, out E> {
 
     fun execute(input: I): Disjunction<E, R>
 }
-````
+```
 
-Donde `Ì` es el input de nuestros use case, `E` el conjunto de casos excepcionales que como vimos más atras definiremos mediante una `sealed class` y `R` el tipo de resultado esperado.
+Donde `I` es el input de nuestros use case, `E` el conjunto de casos excepcionales que, como vimos más atrás, definiremos mediante una `sealed class` y `R` el tipo de retorno esperado.
 
-Nuestro código en Kotlin, ahora ya real quedaría una cosa asi:
+Nuestro código en Kotlin, ahora ya real, quedaría tal que así:
 
-*Os pongo un caso más real para que vaya cogiendo color**
-```java
+*Os pongo un caso más real para que vaya cogiendo color.*
+
+```kotlin
 val closeEvents = getCloseEventsUseCase.execute(location)
 val collections = getCollectionsUseCase.execute(location)
 
@@ -167,7 +171,7 @@ val result = events.flatMap {
   events -> collections.map {
     collections ->
       listOf(FeedElement.Collections(collections)) + events.map { FeedElement.Event(it) }
-    }
+  }
 }
 
 when (result) {
@@ -176,29 +180,31 @@ when (result) {
 }
 ```
 
-El código anterior podéis comprobar como sólo al final cuando vamos a aplicar los side effects es cuando contemplamos y procesamos los casos excepcionales. Mucho más limpio, ¿no?. quedaría mucho más limpio si encapsulara parte del código en funciones puras pero pero he preferido exponerlo así para mostrar mejor la diferencia entre la solución inicial y final.
+En el código anterior podéis comprobar como es sólo al final cuando vamos a aplicar los **side effects** cuando contemplamos y procesamos los casos excepcionales.
 
-Pero aquí tenemos otra vez esta pieza de código y nosotros sin `for comprehension`:
+Mucho más limpio, ¿no?. Quedaría mucho más limpio si encapsulara parte del código en funciones puras pero pero he preferido exponerlo así para mostrar mejor la diferencia entre la solución inicial y final.
 
-```java
+Aquí tenemos otra vez esta pieza de código y nosotros sin `for comprehension`:
+
+```kotlin
 val result = events.flatMap {
   events -> collections.map {
     collections ->
       listOf(FeedElement.Collections(collections)) + events.map { FeedElement.Event(it) }
-    }
+  }
 }
 ```
 
-Aquí es donde viene al rescate el segundo paquete `funktionale-validation` que nos proporciona una manera más limpia y sin anidaciones de procesar varios eithers y conseguir el mismo resultado:
+Aquí es donde viene al rescate el segundo paquete `validation` que nos proporciona una manera más limpia y sin anidaciones de procesar varios eithers y conseguir el mismo resultado:
 
-```java
+```kotlin
 validate(events, collections) {
   events, collections ->
     listOf(FeedElement.Collections(collections)) + events.map { FeedElement.Event(it) }
 }
 ```
 
-Gracias a la función `validate` podemos procesar ese happy case y caso contrario nos devolverá un either con el conjunto de los casos excepcionales.
+Gracias a la función `validate` podemos procesar ese happy case y caso contrario nos devolverá un `Disjunction` con el conjunto de los casos excepcionales.
 
 
 Y hasta aquí todo, espero que al menos este post os muestre que las cosas se pueden hacer de otra manera distinta a como la venimos haciendo los que como yo llevamos años dedicándonos a la programación orientada a objetos y os anime a buscar nuevas soluciones, yo por mi por mi parte seguiré profundizando en el tema y compartiendo mis avances. Para ello he púlicado un repositorio en donde iré mostrando el modo en que implemento mis apps usando estos nuevos patrones y arquitecturas. Además es un proyecto librería así que lo podréis usar si os animáis a hacer alguna prueba.
