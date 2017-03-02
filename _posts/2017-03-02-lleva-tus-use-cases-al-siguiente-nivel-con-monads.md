@@ -1,31 +1,36 @@
 ---
 layout: post
 section-type: post
-title: Lleva tus Use Cases al siguiente nivel con Monads
+title: Lleva tus Use Cases al siguiente nivel con Monads (parte 1)
 category: tech
-tags: [ 'tutorial' ]
+tags: [ 'tutorial' 'kotlin' 'programación funcional' 'monads' 'clean architecture' ]
 ---
 
-# Lleva tus Use Cases al siguiente nivel con Monads
+El tiempo pasa volando y ya llevo mas de tres años jugando con esto que llaman [Clean Architecture](https://www.youtube.com/watch?v=x3CR39_PR_I), empece con [Hexagonal](https://www.youtube.com/watch?v=C3e3AwOTohg) y aquí sigo, si lo contara en numero de frameworks de javascript ya habría perdido la cuenta. Tres años en nuestro sector puede llegar a ser una eternidad.
 
-El tiempo pasa volando y ya llevo mas de tres años jugando con esto que llaman [Clean Architecture](https://www.youtube.com/watch?v=x3CR39_PR_I), empece con [Hexagonal](https://www.youtube.com/watch?v=C3e3AwOTohg) y aquí sigo, si lo contara en numero de framework de javascript ya habría perdido en la cuenta, tres años en nuestro sector puede llegar a ser una eternidad. En todo este tiempo he cometido muchos errores y aprendido cosas, como **sobredosis de modelos**, pasando por **presenters que se creían use cases** o **repositories que delegaban todo su trabajo**. Pero tras todo este tiempo, el punto al que seguía dándole vueltas y no terminaba de tener resuelto era la **gestión de errores y casos excepcionales** así como la **coordinación de trabajos paralelos**.
+En todo este tiempo he cometido muchos errores y aprendido cosas, como sufrir **sobredosis de modelos**, pasando por tener **presentadores que se creían use cases** o **repositorios que delegaban todo su trabajo**. Pero tras todo este tiempo, el punto al que seguía dándole vueltas y no terminaba de tener resuelto era la **gestión de errores y casos excepcionales** así como la **coordinación de trabajos paralelos**.
 
-No es que no existan soluciones, que si existen, si no que todas me parecían engorrosas (Callbacks o Excepciones) o te acoplaban a librerías que o bien no seguían ningún estándar o bien se metían hasta la cocina en tu proyecto ([JDeferrred](https://github.com/jdeferred/jdeferred) o [RxJava](https://github.com/ReactiveX/RxJava)).
+No es que no existan soluciones, que si existen, si no que todas me parecían engorrosas (Callbacks o Excepciones) o te acoplaban a librerías que o bien no seguían ningún estándar o bien se metían hasta la cocina en tu proyecto ([JDeferred](https://github.com/jdeferred/jdeferred) o [RxJava](https://github.com/ReactiveX/RxJava)).
 
-> Podéis buscar información acerca del **Callback Hell**, de la polémica **Checked Excepctions vs Unchecked**, leer un poco de como son las **Futuros/Promesas** en [Scala](https://www.scala-lang.org/) y analizar proyectos hechos con RxJava y ver hasta donde ha extendido sus tentáculos esta librería.
+> *Podéis buscar información acerca del **Callback Hell**, de la polémica **Checked Excepctions vs Unchecked**, leer un poco de como son las **Futuros/Promesas** en [Scala](https://www.scala-lang.org/) y analizar proyectos hechos con **RxJava** y ver hasta donde extiende sus tentáculos esta librería.*
 
-> Esta es mi opinión, informaros y construir la vuestra propia. Sed críticos y cuestionaros vuestras soluciones o las que otros os ofrezcan, es la única manera de progresar y probablemente el mejor consejo que os puedo dar en este post.
+> *Esta es mi opinión, informaros y construir la vuestra propia. Sed críticos y cuestionaros vuestras soluciones o las que otros os ofrezcan, es la única manera de progresar y probablemente el mejor consejo que os puedo dar en este post.*
 
-Y es aquí donde entra en juego la **Programación Funcional**. Hace poco me he puesto manos a la obra para preparar un MVP (Minimum Value Product) y como soy así y no te tenía suficiente con ese reto me propuse hacerlo en [Kotlin](https://kotlinlang.org/), pero fue esta decisión la que me esta permitiendo afrontar los problemas desde otra perspectiva y encontrar nuevas soluciones. Llevo unos años coqueteando con Scala y esto ya me daba alguna idea de lo que podría llegar a ser pero fue la [charla](https://www.youtube.com/watch?v=cnOA7HdNUR4) de [Raúl Raja](https://twitter.com/raulraja) en el pasado [Freakend Mobile](https://www.autentia.com/2017/02/23/un-fin-de-semana-en-la-sierra-hablando-de-mobile-charlas-del-freakend/) la que abrió mi mente a nuevas opciones que vengo a contaros.
+###  
 
-Es cierto que Kotlin esta lejos de ser tan maduro como Scala y la libreria estandar de este segundo es mucho mas completa e incluye cosas que en nuestro caso tendremos que implementar o usar librerias para tenerlas, pero el punto importante es que Kotlin nos ofrece la base necesaría para desarrollar estas soluciones.
+Y es aquí donde entra en juego la **Programación Funcional**. Hace poco me he puesto manos a la obra para preparar un MVP (Minimum Value Product) y como soy así y no te tenía suficiente con ese reto me propuse hacerlo en [Kotlin](https://kotlinlang.org/), pero fue esta decisión la que me está permitiendo afrontar los problemas desde otra perspectiva y encontrar nuevas soluciones. Llevo unos años coqueteando con Scala y esto ya me daba alguna idea de lo que podría llegar a ser pero fue la [charla](https://www.youtube.com/watch?v=cnOA7HdNUR4) de [Raúl Raja](https://twitter.com/raulraja) en el pasado [Freakend Mobile](https://www.autentia.com/2017/02/23/un-fin-de-semana-en-la-sierra-hablando-de-mobile-charlas-del-freakend/) la que abrió mi mente a las nuevas opciones que vengo a contaros.
 
-> En este post no voy entrar a explicaros las bases de Kotlin ni los elementos de este lenguaje que vamos a usar. Si como yo sois programadores de Android os recomiendo leeros ["Kotlin for Android Developers: Learn Kotlin the easy way while developing an Android App"](https://www.amazon.es/Kotlin-Android-Developers-Learn-developing/dp/1530075610/ref=sr_1_1?s=books&ie=UTF8&qid=1488458124&sr=8-1&keywords=antonio+leiva+kotlin), un fantástico libro de introducción al desarrollo en Android con Kotlin que os proporcionara esa base necesaria.
+Es cierto que Kotlin esta lejos de ser tan maduro como Scala y la libreria estandar de este segundo es mucho mas completa e incluye cosas que en nuestro caso tendremos que implementar o apoyarnos en librerías de terceros para tenerlas, pero el punto importante es que Kotlin nos ofrece la base necesaría para desarrollar estas soluciones.
 
-> Tampoco voy a profundizar en el concepto de Monad o sus distintos tipos, tan solo en como estos nos ayudan. Para lo primero os recomiendo una charla de Juan Manuel Serrano sobre [arquitecturas funcionales](https://www.youtube.com/watch?v=CT58M6CH0m4) que tuve el placer de disfrutar en la pasada Codemotion 2016 y recomiendo muy mucho. Para lo segundo podéis ver la charla de Raúl que enlacé más atrás o leeros los puntos 5, 6 y 7 de [esta](http://danielwestheide.com/scala/neophytes.html) guía de Scala.
+> *En este post no voy entrar a explicaros las bases de Kotlin ni los elementos de este lenguaje que vamos a usar. Si como yo sois programadores de Android os recomiendo leeros ["Kotlin for Android Developers: Learn Kotlin the easy way while developing an Android App"](https://www.amazon.es/Kotlin-Android-Developers-Learn-developing/dp/1530075610/ref=sr_1_1?s=books&ie=UTF8&qid=1488458124&sr=8-1&keywords=antonio+leiva+kotlin), un fantástico libro de introducción al desarrollo en Android con Kotlin que os proporcionara esa base necesaria.*
 
-Os comentaba que era la gestión de errores y los coordinanción de trabajos los puntos que me preocupaban, este post solo abarcara el primero de los problemas aunque bien es cierto que la senda que aqui empezamos es la misma que nos hará encontrar solución a lo segundo. En cuanto lo tenga más maduro publicare otro post.
+> *Tampoco voy a profundizar en el concepto de Monad o sus distintos tipos, tan solo en como estos nos ayudan. Para lo primero os recomiendo una charla de **Juan Manuel Serrano** sobre [arquitecturas funcionales](https://www.youtube.com/watch?v=CT58M6CH0m4) que tuve el placer de disfrutar en la pasada Codemotion 2016 y recomiendo muy mucho. Para lo segundo podéis ver la charla de Raúl que enlacé más atrás o leeros los puntos 5, 6 y 7 de [esta](http://danielwestheide.com/scala/neophytes.html) guía de Scala.*
 
+###  
+
+Os comentaba que era la gestión de errores y los coordinanción de trabajos los puntos que me preocupaban, este post solo abarcará el primero de los problemas aunque bien es cierto que la senda que aquí empezamos es la misma que nos hará encontrar solución a lo segundo. En cuanto lo tenga más maduro publicare otro post.
+
+###  
 
 ## ¿Cual es el problema?
 
@@ -197,4 +202,3 @@ Gracias a la función `validate` podemos procesar ese happy case y caso contrari
 Y hasta aquí todo, espero que al menos este post os muestre que las cosas se pueden hacer de otra manera distinta a como la venimos haciendo los que como yo llevamos años dedicándonos a la programación orientada a objetos y os anime a buscar nuevas soluciones, yo por mi por mi parte seguiré profundizando en el tema y compartiendo mis avances. Para ello he púlicado un repositorio en donde iré mostrando el modo en que implemento mis apps usando estos nuevos patrones y arquitecturas. Además es un proyecto librería así que lo podréis usar si os animáis a hacer alguna prueba.
 
 Future&#60;Option&#60;HastaPronto&#62;&#62;
-
