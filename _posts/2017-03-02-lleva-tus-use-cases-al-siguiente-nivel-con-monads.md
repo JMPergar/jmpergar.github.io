@@ -27,6 +27,7 @@ Es cierto que Kotlin esta lejos de ser tan maduro como Scala y la libreria estan
 > *Tampoco voy a profundizar en el concepto de Monad o sus distintos tipos, tan solo en como estos nos ayudan. Para lo primero os recomiendo una charla de **Juan Manuel Serrano** sobre [arquitecturas funcionales](https://www.youtube.com/watch?v=CT58M6CH0m4) que tuve el placer de disfrutar en la pasada Codemotion 2016 y recomiendo muy mucho. Para lo segundo podéis ver la charla de Raúl que enlacé más atrás o leeros los puntos 5, 6 y 7 de [esta](http://danielwestheide.com/scala/neophytes.html) guía de Scala.*
 
 Os comentaba que era la gestión de errores y los coordinanción de trabajos los puntos que me preocupaban, este post solo abarcará el primero de los problemas aunque bien es cierto que la senda que aquí empezamos es la misma que nos hará encontrar solución a lo segundo. En cuanto lo tenga más maduro publicare otro post.
+<br><br>
 
 ## ¿Cual es el problema?
 
@@ -64,6 +65,7 @@ try {
   // do something
 }
 ```
+<br><br>
 
 Ambas implementaciones nos llevarían al mismo problema. Tendríamos que andar preguntando si ha ido bien o mal y en el segundo caso preguntar que ha ido mal, esto por cada una de las llamadas. No tendríamos una manera clara y legible de escribir nuestro happy case, ¿que es lo que queremos hacer cuando todo va bien?. A todo el código de las llamadas planteadas en cualquiera de los dos estilos anteriores habría que añadir el de esas preguntas que os comentaba. Os expongo el caso más sencillo, el síncrono:
 
@@ -76,6 +78,7 @@ if (resultOfFirstCall != null && resultOfSecondCall != null) {
 ```
 
 *En el caso asíncrono sería aun más complejo por que habría que usar algún mecanismo para esperar que ambas llamadas respondan o lancen la excepción (esto es tema de próximos posts).*
+<br><br>
 
 Evidentemente este código es muy simple con el fin de servir de ejemplo, pero imaginad como se podría complicar si el número de llamadas sube o si también lo hace el número de casos a contemplar. Imaginaos cuanto código tendríais que leer para averiguar que hace vuestro programa. Imaginad que queréis hacer cosas más complejas como procesar esos dos resultados y hacer una tercera llamada con el y concatenar este tercer resultado con un cuarto. Imaginad la cantidad de comprobaciones intermedias que tendreís que hacer y como poco a poco la verdadera finalidad de vuestro programa queda cada vez más oculta por el como por encima del qué.
 
@@ -95,10 +98,12 @@ inCaseOfSuccess(var4) {
   // do something with the collections of errors
 }
 ```
+<br><br>
 
 ¿Bónito verdad?
 
 Como veís, ahora de un simple vistazo vemos lo que nuestro programa hace y solo al final gestionamos las excepciones.
+<br><br>
 
 ## ¿Pero como lo hacemos?
 
@@ -113,14 +118,13 @@ sealed class ExceptionsCase {
     class ServerError : ExceptionsCase()
 }
 ```
+<br><br>
 
 Lo que aquí tendríamos es un tipo de respuesta que podría contener nuestro resultado esperado o el caso excepcional a contemplar (definido mediante una `sealed class` de kotlin).
 
 Y tu me dirás, ¡pero si estamos en las mismas!, debemos preguntar por el contenido para poder trabajar con el. Y yo te diré, no, es aquí donde, gracias al concepto de monad, podemos trabajar con estos resultados bajo el supuesto de que todo ha ido bien.
 
 La idea es que mediante funciones como `map` o `flatMap` procesemos el resultado en caso de existir y en caso contrario devolver un `Either` que albergue el caso exceptional, esto nos permitiría ir concatenando eithers y solo al final preocuparnos de si ha dio bien o mal. Os pongo un ejemplo:
-
-*La declaracion de tipos en kotlin no sería necesaría y sería inferida pero la añado por claridad*
 
 ```kotlin
 val result1: Either<ExceptionsCase, String> = firstCall()
@@ -132,10 +136,10 @@ result1.flatMap {
   }
 }
 ```
+*La declaracion de tipos en kotlin no sería necesaría y sería inferida pero la añado por claridad*
+<br><br>
 
 En este caso `res1` y `res2` serían los strings de respuesta. Pero no, esto aun no es todo lo limpio que nos gustaría y se podría complicar mucho si anidamos varios procesamientos de eithers. Lo bueno es que los lenguajes ya nos proporcionan azúcar sintáctico para lidiar con estos casos. Como las `for comprehension` de Scala que dejarían nuestro código como algo similar a lo siguiente:
-
-*Right y left es la manera en que el tipo `Either` nos proporciona accesos al resultado esperado o a los casos excepcionales respectivamente.*
 
 ```scala
 for {
@@ -143,6 +147,8 @@ for {
     res2 <- result2.right
 } yield (res1 + res2)
 ```
+*Right y left es la manera en que el tipo `Either` nos proporciona accesos al resultado esperado o a los casos excepcionales respectivamente.*
+<br><br>
 
 Pero he hecho un poco de trampa, por que como os comentaba al principio Kotlin no está aún al nivel de lenguaje como Scala en estos aspectos y no incluye ni `Either` ni nada similar a las `for comprehension`, pero también os comentaba que nos proporciona las base para implementar este tipo de soluciones.
 
@@ -156,12 +162,11 @@ interface UseCase<in I, out R, out E> {
     fun execute(input: I): Disjunction<E, R>
 }
 ```
+<br><br>
 
 Donde `I` es el input de nuestros use case, `E` el conjunto de casos excepcionales que, como vimos más atrás, definiremos mediante una `sealed class` y `R` el tipo de retorno esperado.
 
 Nuestro código en Kotlin, ahora ya real, quedaría tal que así:
-
-*Os pongo un caso más real para que vaya cogiendo color.*
 
 ```kotlin
 val closeEvents = getCloseEventsUseCase.execute(location)
@@ -179,6 +184,8 @@ when (result) {
   is Disjunction.Right -> result.map { view?.renderFeed(it) }
 }
 ```
+*Os pongo un caso más real para que vaya cogiendo color.*
+<br><br>
 
 En el código anterior podéis comprobar como es sólo al final cuando vamos a aplicar los **side effects** cuando contemplamos y procesamos los casos excepcionales.
 
@@ -194,6 +201,7 @@ val result = events.flatMap {
   }
 }
 ```
+<br><br>
 
 Aquí es donde viene al rescate el segundo paquete `validation` que nos proporciona una manera más limpia y sin anidaciones de procesar varios eithers y conseguir el mismo resultado:
 
@@ -203,10 +211,13 @@ validate(events, collections) {
     listOf(FeedElement.Collections(collections)) + events.map { FeedElement.Event(it) }
 }
 ```
+<br><br>
 
 Gracias a la función `validate` podemos procesar ese happy case y caso contrario nos devolverá un `Disjunction` con el conjunto de los casos excepcionales.
-
+<br><br>
 
 Y hasta aquí todo, espero que al menos este post os muestre que las cosas se pueden hacer de otra manera distinta a como la venimos haciendo los que como yo llevamos años dedicándonos a la programación orientada a objetos y os anime a buscar nuevas soluciones, yo por mi por mi parte seguiré profundizando en el tema y compartiendo mis avances. Para ello he púlicado un repositorio en donde iré mostrando el modo en que implemento mis apps usando estos nuevos patrones y arquitecturas. Además es un proyecto librería así que lo podréis usar si os animáis a hacer alguna prueba.
+<br><br>
 
 Future&#60;Option&#60;HastaPronto&#62;&#62;
+<br><br>
