@@ -1,7 +1,7 @@
 ---
 layout: post
 section-type: post
-title: Lleva tus Use Cases al siguiente nivel con Monads
+title: Lleva tus Use Cases al siguiente nivel con Monads y Kotlin
 category: tech
 tags: [ 'tutorial', 'kotlin', 'programación funcional', 'monads', 'clean architecture' ]
 ---
