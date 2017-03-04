@@ -27,7 +27,7 @@
 	<meta name="twitter:description" content="{{ page.content | strip_html | xml_escape | truncate: 200 }}">
 
 	{% if page.headerimage %}
-  	  <meta name="twitter:image:src" content="{{ site.url }}{{ page.image }}">
+  	  <meta name="twitter:image:src" content="{{ site.url }}{{ page.headerimage }}">
 	{% else %}
 	  <meta name="twitter:image:src" content="https://jmpergar.com/img/intro-bg.jpg">
 	{% endif %}
