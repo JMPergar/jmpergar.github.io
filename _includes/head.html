@@ -24,7 +24,11 @@
 	  <meta name="twitter:title" content="{{ site.title }}">
 	{% endif %}	
 
-	<meta name="twitter:description" content="{{ page.content | strip_html | xml_escape | truncate: 200 }}">
+	{% if page.content %}
+	  <meta name="twitter:description" content="{{ page.content | strip_html | xml_escape | truncate: 200 }}">
+	{% else %}
+	  <meta name="twitter:description" content="{{ site.description }}">
+	{% endif %}
 
 	{% if page.headerimage %}
   	  <meta name="twitter:image:src" content="{{ site.url }}{{ page.headerimage }}">
